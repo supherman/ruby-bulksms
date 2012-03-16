@@ -41,7 +41,23 @@ module Net
 				def initialize(username, password, country = 'uk')
 					@account = Account.new(username, password, country)
           @country=country
-				end
+        end
+
+        # Returns the gateway URL for the chosen country
+        def host(country)
+          case country
+            when 'uk'
+              'www.bulksms.co.uk'
+            when 'usa'
+              'usa.bulksms.com'
+            when 'international'
+              'bulksms.vsms.net'
+            when 'safrica'
+              'bulksms.2way.co.za'
+            when 'spain'
+              'bulksms.com.es'
+          end
+        end
 
 				# Sends the given Message object to the gateway for delivery
 				def send_message(msg)
@@ -68,24 +84,10 @@ module Net
 				def send(message, recipient)
 					msg = Message.new(message, recipient)
 					self.send_message(msg)
-				end
+        end
       end
       
-			# Returns the gateway URL for the chosen country
-			def host(country)
-				case country
-					when 'uk'
-						'www.bulksms.co.uk'
-					when 'usa'
-						'usa.bulksms.com'
-					when 'international'
-						'bulksms.vsms.net'
-					when 'safrica'
-						'bulksms.2way.co.za'
-					when 'spain'
-						'bulksms.com.es'
-				end
-			end
+
 		end
 	end
 end
